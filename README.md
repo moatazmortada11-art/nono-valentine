@@ -1,9 +1,8 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine?</title>
+    <title>From Toty</title>
     <style>
         body { 
             height: 100vh; 
@@ -11,13 +10,12 @@
             justify-content: center; 
             align-items: center; 
             background: #ffe6eb; 
-            font-family: 'Arial', sans-serif; 
+            font-family: Arial, sans-serif; 
             overflow: hidden; 
             margin: 0; 
         }
         .box { text-align: center; padding: 20px; width: 100%; }
-        h1 { color: #e6005c; font-size: 2.2rem; margin-bottom: 20px; }
-        h2 { color: #e6005c; margin-bottom: 15px; display: none; }
+        h1 { color: #e6005c; font-size: 2.2rem; }
         
         button { 
             padding: 15px 35px; 
@@ -27,18 +25,22 @@
             border-radius: 50px; 
             cursor: pointer; 
             font-weight: bold; 
-            transition: 0.2s; 
         }
+        
         #yes { background-color: #ff4d79; color: white; }
+        
         #no { 
             background-color: #999; 
             color: white; 
             position: absolute; 
-            left: 55%;
+            transition: 0.1s;
+            left: 50%;
             top: 60%;
+            transform: translate(-50%, -50%);
         }
         
-        #video-container { display: none; margin-top: 10px; }
+        #content { display: none; margin-top: 10px; }
+        
         video { 
             width: 90%; 
             max-width: 320px; 
@@ -54,10 +56,11 @@
         <button id="yes">Yes</button>
         <button id="no">No</button>
 
-        <div id="video-container">
-            <h2>you have no choice😜</h2>
+        <div id="content">
+            <h2 style="color: #e6005c;">From Toty 😜</h2>
             <video id="valVideo" playsinline>
                 <source src="V14044g50000d4a5tp7og65nalcc65ag.mov" type="video/quicktime">
+                Your browser does not support the video tag.
             </video>
         </div>
     </div>
@@ -65,29 +68,31 @@
     <script>
         const noBtn = document.getElementById("no");
         const yesBtn = document.getElementById("yes");
-        const question = document.getElementById("question");
-        const videoContainer = document.getElementById("video-container");
-        const videoText = document.querySelector("h2");
         const video = document.getElementById("valVideo");
+        const question = document.getElementById("question");
+        const content = document.getElementById("content");
 
-        // Running No Button
-        noBtn.addEventListener("mouseover", () => {
-            const x = Math.random() * (window.innerWidth - 100);
-            const y = Math.random() * (window.innerHeight - 50);
-            noBtn.style.left = x + "px";
-            noBtn.style.top = y + "px";
+        const moveButton = () => {
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            noBtn.style.left = randomX + "px";
+            noBtn.style.top = randomY + "px";
+        };
+
+        noBtn.addEventListener("mouseover", moveButton);
+        noBtn.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+            moveButton();
         });
 
-        // Yes Button Action
         yesBtn.addEventListener("click", () => {
             question.style.display = "none";
             yesBtn.style.display = "none";
             noBtn.style.display = "none";
-            
-            videoContainer.style.display = "block";
-            videoText.style.display = "block";
-            
-            video.play();
+            content.style.display = "block";
+            video.play(); // Starts video and sound
         });
     </script>
 </body>
